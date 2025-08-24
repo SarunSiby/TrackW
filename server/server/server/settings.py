@@ -10,14 +10,15 @@ DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
 # ✅ Allow Render domain + localhost
 ALLOWED_HOSTS = [
-    "trackw.onrender.com",   # your Render app
+    "trackw.onrender.com",   # Render app
     "127.0.0.1",
     "localhost"
 ]
 
-# ✅ Also allow CSRF for your Render URL
+# ✅ CSRF trusted origins (Render + Netlify frontend)
 CSRF_TRUSTED_ORIGINS = [
-    "https://trackw.onrender.com"
+    "https://trackw.onrender.com",            # Render backend
+    "https://your-frontend.netlify.app",      # Netlify frontend (replace with your actual site name)
 ]
 
 # --- Applications ---
@@ -103,8 +104,7 @@ REST_FRAMEWORK = {
 
 # --- CORS ---
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = (
-    os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
-    if os.getenv("CORS_ALLOWED_ORIGINS")
-    else []
-)
+CORS_ALLOWED_ORIGINS = [
+    "https://your-frontend.netlify.app",  # Netlify frontend
+    "http://localhost:3000",              # React dev server (optional for local dev)
+]
