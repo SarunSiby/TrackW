@@ -17,8 +17,8 @@ ALLOWED_HOSTS = [
 
 # ✅ CSRF trusted origins (Render + Netlify frontend)
 CSRF_TRUSTED_ORIGINS = [
-    "https://trackw.onrender.com",            # Render backend
-    "https://your-frontend.netlify.app",      # Netlify frontend (replace with your actual site name)
+    "https://trackw.onrender.com",   # Render backend
+    "https://trackw.netlify.app",    # Netlify frontend
 ]
 
 # --- Applications ---
@@ -105,6 +105,6 @@ REST_FRAMEWORK = {
 # --- CORS ---
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "https://your-frontend.netlify.app",  # Netlify frontend
-    "http://localhost:3000",              # React dev server (optional for local dev)
+    "https://trackw.netlify.app",   # ✅ Netlify frontend
+    "http://localhost:3000",        # React dev server (optional for local dev)
 ]
