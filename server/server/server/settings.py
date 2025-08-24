@@ -12,13 +12,14 @@ DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = [
     "trackw.onrender.com",   # Render app
     "127.0.0.1",
-    "localhost"
+    "localhost",
 ]
 
-# ✅ CSRF trusted origins (Render + Netlify frontend)
+# ✅ CSRF trusted origins (Render + Netlify prod + Netlify preview)
 CSRF_TRUSTED_ORIGINS = [
-    "https://trackw.onrender.com",   # Render backend
-    "https://trackw.netlify.app",    # Netlify frontend
+    "https://trackw.onrender.com",                 # Render backend
+    "https://trackw.netlify.app",                  # Netlify production
+    "https://devserver-main--trackw.netlify.app",  # Netlify preview
 ]
 
 # --- Applications ---
@@ -99,12 +100,13 @@ REST_FRAMEWORK = {
             "rest_framework.renderers.JSONRenderer",
             "rest_framework.renderers.BrowsableAPIRenderer",
         ]
-    )
+    ),
 }
 
 # --- CORS ---
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "https://trackw.netlify.app",   # ✅ Netlify frontend
-    "http://localhost:3000",        # React dev server (optional for local dev)
+    "https://trackw.netlify.app",                  # Netlify production
+    "https://devserver-main--trackw.netlify.app",  # Netlify preview
+    "http://localhost:3000",                       # React dev server (local)
 ]
