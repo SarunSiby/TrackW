@@ -7,12 +7,7 @@ gunicorn==23.0.0
 packaging==25.0
 sqlparse==0.5.3
 tzdata==2025.2
-pip install gunicorn
-pip freeze > requirements.txt
-copy requirements.txt server\server\requirements.txt
-git add requirements.txt server/server/requirements.txt render.yaml
-git commit -m "Render config: Django start command + requirements"
-git push
+
 
 
 
