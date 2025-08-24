@@ -1,4 +1,3 @@
-# server/server/server/settings.py
 from pathlib import Path
 import os
 
@@ -9,16 +8,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key-change-later")
 DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
-CSRF_TRUSTED_ORIGINS = (
-    os.getenv("DJANGO_CSRF_TRUSTED", "").split(",")
-    if os.getenv("DJANGO_CSRF_TRUSTED")
-    else []
-)
+# ✅ Allow Render domain + localhost
+ALLOWED_HOSTS = [
+    "trackw.onrender.com",   # your Render app
+    "127.0.0.1",
+    "localhost"
+]
+
+# ✅ Also allow CSRF for your Render URL
+CSRF_TRUSTED_ORIGINS = [
+    "https://trackw.onrender.com"
+]
 
 # --- Applications ---
 INSTALLED_APPS = [
-    # Core Django apps (keep these for sessions, staticfiles, admin etc.)
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -37,7 +40,7 @@ INSTALLED_APPS = [
 
 # --- Middleware ---
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",  # keep high for CORS
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -47,11 +50,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# --- URL routing + WSGI entrypoint (missing in your file) ---
+# --- URL routing + WSGI entrypoint ---
 ROOT_URLCONF = "server.urls"
 WSGI_APPLICATION = "server.wsgi.application"
 
-# --- Templates (needed even if you don’t use server-side HTML; DRF/admin rely on it) ---
+# --- Templates ---
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -80,12 +83,12 @@ DATABASES = {
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
-USE_TZ = False  # keep False if you want naive local dates
+USE_TZ = False
 
-# --- Static (Render will serve via gunicorn; fine for API) ---
+# --- Static ---
 STATIC_URL = "static/"
 
-# --- REST Framework (hide browsable API in production if desired) ---
+# --- REST Framework ---
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_RENDERER_CLASSES": (
@@ -95,7 +98,7 @@ REST_FRAMEWORK = {
             "rest_framework.renderers.JSONRenderer",
             "rest_framework.renderers.BrowsableAPIRenderer",
         ]
-    ),
+    )
 }
 
 # --- CORS ---
