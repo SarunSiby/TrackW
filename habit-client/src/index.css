@@ -4,3 +4,9 @@
 
 /* small UX polish */
 * { outline-offset: 2px; }
+/* keep scrollbar space so layout doesn't jump */
+html { scrollbar-gutter: stable; }
+
+/* don't change layout size on focus */
+button { outline: none; }
+button:focus-visible { outline: none; }
