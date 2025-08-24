@@ -35,3 +35,19 @@ export async function habitStats(id) {
     if (!r.ok) throw new Error('Failed to load stats')
     return r.json()
 }
+
+export async function updateHabit(id, name) {
+    const r = await fetch(`${API}/habits/${id}/`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+    });
+    if (!r.ok) throw new Error('Failed to update habit');
+    return r.json();
+}
+
+export async function deleteHabit(id) {
+    const r = await fetch(`${API}/habits/${id}/`, { method: 'DELETE' });
+    if (!r.ok) throw new Error('Failed to delete habit');
+    return true;
+}
