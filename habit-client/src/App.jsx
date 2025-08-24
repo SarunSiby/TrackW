@@ -75,6 +75,7 @@ export default function App() {
                         <p className="text-gray-500">No habits yet. Add one above.</p>
                     )}
                 </main>
+
             </div>
         </div>
     )
